@@ -1,5 +1,11 @@
-const ProtectedRoute = () => {
-  return <div>ProtectedRoute</div>;
+import { Navigate } from "react-router-dom";
+
+const ProtectedRoute = ({ user, children }) => {
+  if (!user) {
+    return <Navigate to="/ligin" />;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;
