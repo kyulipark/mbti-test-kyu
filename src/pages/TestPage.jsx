@@ -17,7 +17,7 @@ const Test = ({ user }) => {
       visibility: true,
     };
     await createTestResult(resultData);
-    navigate("/results");
+    navigate("/result");
   };
 
   return (
