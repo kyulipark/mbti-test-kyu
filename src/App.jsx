@@ -37,7 +37,7 @@ function App() {
             }
           />
           <Route
-            path="/results"
+            path="/result"
             element={
               <ProtectedRoute user={user}>
                 <TestResultPage user={user} />

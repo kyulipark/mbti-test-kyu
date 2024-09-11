@@ -24,6 +24,7 @@ const Layout = ({ user, setUser, children }) => {
           <div>
             {user ? (
               <>
+                  <Link to="/result">결과보기</Link>
            <Link to="/test">테스트</Link>
                 <Link to="/profile">프로필</Link>
                 <div>{user.nickname}님</div>
