@@ -1,14 +1,38 @@
-import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { register } from "../api/auth";
+// import AuthForm from "../components/AuthForm";
 
 const Signup = () => {
+  // const navigate = useNavigate();
+
+  // const signupMutation = useMutation((formData) => register(formData), {
+  //   onSuccess: () => {
+  //     alert("회원가입이 완료되었습니다.");
+  //     navigate("/login");
+  //   },
+  //   onError: (error) => {
+  //     alert(`회원가입 실패: ${error.message}`);
+  //   },
+  // });
+
+  // const handleSignup = (formData) => {
+  //   signupMutation.mutate({
+  //     username: formData.id,
+  //     password: formData.password,
+  //     nickname: formData.nickname,
+  //   });
+  // };
+
   return (
     <StyledBox>
       <h2>회원가입</h2>
+      {/* <AuthForm mode="signup" onSubmit={handleSignup} /> */}
       <StyledInnerBox>
-        <input placeholder="아이디" />
-        <input placeholder="비밀번호" />
-        <input placeholder="닉네임" />
+        <input type="text" placeholder="아이디" />
+        <input type="text" placeholder="닉네임" />
+        <input type="number" placeholder="비밀번호" />
         <button>회원가입</button>
       </StyledInnerBox>
       <StyledFooter>

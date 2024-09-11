@@ -1,21 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
-const AuthForm = (mode, onSubmit) => {
+const AuthForm = ({ mode, onSubmit }) => {
   const [formData, setFormData] = useState({
     id: " ",
     password: " ",
     nickname: mode === "signup" ? " " : undefined,
   });
-
-  useEffect(() => {
-    if (typeof onSubmit !== "function") {
-      console.error("onSubmit prop must be a function");
-    }
-    if (!["login", "signup"].includes(mode)) {
-      console.error('mode prop must be either "login" or "signup"');
-    }
-  }, [mode, onSubmit]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

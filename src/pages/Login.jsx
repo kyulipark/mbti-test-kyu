@@ -1,10 +1,33 @@
-import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { login } from "../api/auth";
+import AuthForm from "../components/AuthForm";
 
 const Login = () => {
+  // const navigate = useNavigate();
+
+  // const loginMutation = useMutation((formData) => login(formData), {
+  //   onSuccess: (data) => {
+  //     alert("로그인 성공!");
+  //     navigate("/profile");
+  //   },
+  //   onError: (error) => {
+  //     alert(`로그인 실패: ${error.message}`);
+  //   },
+  // });
+
+  // const handleLogin = (formData) => {
+  //   loginMutation.mutate({
+  //     username: formData.id,
+  //     password: formData.password,
+  //   });
+  // };
+
   return (
     <StyledBox>
       <h2>로그인</h2>
+      {/* <AuthForm mode="login" onSubmit={handleLogin} /> */}
       <StyledInnerBox>
         <input type="text" placeholder="아이디" />
         <input type="number" placeholder="비밀번호" />

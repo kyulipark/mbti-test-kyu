@@ -2,44 +2,46 @@ import axios from "axios";
 
 const API_URL = "https://moneyfulpublicpolicy.co.kr";
 
-const api = axios.create({
-  baseURL: API_URL,
-});
-
-// 요청 전에 토큰을 헤더에 추가하는 인터셉터
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
 export const register = async (userData) => {
-  const response = await api.post("/register", userData);
+  const response = await axios.post(`${API_URL}/register`, userData);
   return response.data;
 };
 
+// 로그인 요청
 export const login = async (userData) => {
-  const response = await api.post("/login", userData);
+  const response = await axios.post(`${API_URL}/login`, userData);
 
   if (response.data.token) {
     localStorage.setItem("token", response.data.token);
   }
+
   return response.data;
 };
 
+// 사용자 프로필 조회 요청
 export const getUserProfile = async () => {
-  const response = await api.get("/profile");
+  const token = localStorage.getItem("token");
+
+  const response = await axios.get(`${API_URL}/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return response.data;
 };
 
+// 프로필 수정 요청
 export const updateProfile = async (formData) => {
-  const response = await api.put("/profile", formData, {
+  const token = localStorage.getItem("token");
+
+  const response = await axios.put(`${API_URL}/profile`, formData, {
     headers: {
+      Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",
     },
   });
+
   return response.data;
 };
 
