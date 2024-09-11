@@ -1,92 +1,38 @@
-import { useMutation } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { login } from "../api/auth";
 import AuthForm from "../components/AuthForm";
+import { login, getUserProfile } from "../api/auth";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
-  // const navigate = useNavigate();
+const Login = ({ setUser }) => {
+  const navigate = useNavigate();
 
-  // const loginMutation = useMutation((formData) => login(formData), {
-  //   onSuccess: (data) => {
-  //     alert("로그인 성공!");
-  //     navigate("/profile");
-  //   },
-  //   onError: (error) => {
-  //     alert(`로그인 실패: ${error.message}`);
-  //   },
-  // });
+  const handleLogin = async (formData) => {
+    try {
+      const loginData = await login(formData);
+      localStorage.setItem("accessToken", loginData.accessToken);
 
-  // const handleLogin = (formData) => {
-  //   loginMutation.mutate({
-  //     username: formData.id,
-  //     password: formData.password,
-  //   });
-  // };
+      const userProfile = await getUserProfile(loginData.accessToken);
+
+      setUser(userProfile);
+
+      navigate("/");
+    } catch (error) {
+      alert("로그인에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
 
   return (
-    <StyledBox>
-      <h2>로그인</h2>
-      {/* <AuthForm mode="login" onSubmit={handleLogin} /> */}
-      <StyledInnerBox>
-        <input type="text" placeholder="아이디" />
-        <input type="number" placeholder="비밀번호" />
-        <button>로그인</button>
-      </StyledInnerBox>
-      <StyledFooter>
-        <p>계정이 없으신가요?</p>
-        <Link to="/signup">
-          <p>회원가입</p>
-        </Link>
-      </StyledFooter>
-    </StyledBox>
+    <div>
+      <div>
+        <h1>로그인</h1>
+        <AuthForm mode={"login"} onSubmit={handleLogin} />
+        <div>
+          <p>
+            계정이 없으신가요? <Link to="/signup">회원가입</Link>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 
 export default Login;
-
-const StyledBox = styled.div`
-  background-color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 200%;
-  border-radius: 8px;
-
-  h2 {
-    color: #1c0675;
-  }
-`;
-
-const StyledInnerBox = styled.div`
-  background-color: #e1e1e1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 80%;
-  height: 20vh;
-  border-radius: 4px;
-  padding: 10px;
-
-  input {
-    height: 35px;
-    width: 80%;
-    margin: 5px 10px;
-  }
-`;
-
-const StyledFooter = styled.div`
-  display: flex;
-  margin: 8px 0px;
-
-  p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: x-small;
-    color: #626262;
-    margin: 4px;
-  }
-`;

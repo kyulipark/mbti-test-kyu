@@ -1,19 +1,18 @@
 import { useState } from "react";
-import styled from "styled-components";
 
 const AuthForm = ({ mode, onSubmit }) => {
+  console.log(mode);
   const [formData, setFormData] = useState({
-    id: " ",
-    password: " ",
-    nickname: mode === "signup" ? " " : undefined,
+    id: "",
+    password: "",
+    nickname: "",
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = (e) => {
@@ -22,7 +21,7 @@ const AuthForm = ({ mode, onSubmit }) => {
   };
 
   return (
-    <StyledInnerBox onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         name="id"
@@ -31,6 +30,7 @@ const AuthForm = ({ mode, onSubmit }) => {
         placeholder="아이디"
         required
       />
+
       <input
         type="password"
         name="password"
@@ -39,6 +39,7 @@ const AuthForm = ({ mode, onSubmit }) => {
         placeholder="비밀번호"
         required
       />
+
       {mode === "signup" && (
         <input
           type="text"
@@ -47,29 +48,12 @@ const AuthForm = ({ mode, onSubmit }) => {
           onChange={handleChange}
           placeholder="닉네임"
           required
+          className="w-full p-4 border border-gray-300 rounded-lg"
         />
       )}
       <button type="submit">{mode === "login" ? "로그인" : "회원가입"}</button>
-    </StyledInnerBox>
+    </form>
   );
 };
 
 export default AuthForm;
-
-const StyledInnerBox = styled.div`
-  background-color: #e1e1e1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 80%;
-  height: 20vh;
-  border-radius: 4px;
-  padding: 10px;
-
-  input {
-    height: 35px;
-    width: 80%;
-    margin: 5px 10px;
-  }
-`;

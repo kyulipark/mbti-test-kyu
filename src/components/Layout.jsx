@@ -1,47 +1,49 @@
-import { Link, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const Layout = () => {
+// Props 로 꼭 children 만 받을 필요는 없답니다.
+const Layout = ({ user, setUser, children }) => {
+  const navigate = useNavigate();
+
+  // 이곳에서 로그인 하지 않은 사용자를 login 페이지로 보내줄 거에요.
+  useEffect(() => {}, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setUser(null);
+
+    navigate("/");
+  };
+
   return (
     <div>
-      <StyledHeader>
-        <nav>
+      <header>
+        <StyledNav>
           <Link to="/">홈</Link>
-          <Link to="/login">로그인</Link>
-        </nav>
-      </StyledHeader>
-
-      <main>
-        <Outlet />
-      </main>
+          <div>
+            {user ? (
+              <>
+                <Link to="/profile">프로필</Link>
+                <div>{user.nickname}님</div>
+                <button onClick={handleLogout}>로그아웃</button>
+              </>
+            ) : (
+              <Link to="/login">로그인</Link>
+            )}
+          </div>
+        </StyledNav>
+      </header>
+      <main>{children}</main>
     </div>
   );
 };
 
 export default Layout;
 
-const StyledHeader = styled.div`
-  background-color: #c2c2c2;
+const StyledNav = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  height: 5vh;
-  min-width: 100%;
-  padding: 0 60px;
-
-  nav {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  a {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-
-    &:hover {
-      color: #26bcaa;
-    }
-  }
+  background-color: #8a4bc2;
+  padding: 8px;
 `;

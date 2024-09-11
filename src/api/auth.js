@@ -7,47 +7,27 @@ export const register = async (userData) => {
   return response.data;
 };
 
-// 로그인 요청
 export const login = async (userData) => {
   const response = await axios.post(`${API_URL}/login`, userData);
-
-  if (response.data.token) {
-    localStorage.setItem("token", response.data.token);
-  }
-
   return response.data;
 };
 
-// 사용자 프로필 조회 요청
-export const getUserProfile = async () => {
-  const token = localStorage.getItem("token");
-
-  const response = await axios.get(`${API_URL}/profile`, {
+export const getUserProfile = async (token) => {
+  const response = await axios.get(`${API_URL}/user`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-
   return response.data;
 };
 
-// 프로필 수정 요청
 export const updateProfile = async (formData) => {
-  const token = localStorage.getItem("token");
-
-  const response = await axios.put(`${API_URL}/profile`, formData, {
+  const token = localStorage.getItem("accessToken");
+  const response = await axios.get(`${API_URL}/profile`, formData, {
     headers: {
-      Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
     },
   });
-
   return response.data;
-};
-
-export default {
-  register,
-  login,
-  getUserProfile,
-  updateProfile,
 };

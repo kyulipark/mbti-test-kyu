@@ -1,11 +1,3 @@
 {
-  "users": [
-    {
-      "id": 1,
-      "username": "test",
-      "password": "123",
-      "nickname": "TestUser",
-      "token": "abc123"
-    }
-  ]
+  "testResults": []
 }
