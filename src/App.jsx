@@ -8,13 +8,14 @@ import TestPage from "./pages/TestPage";
 import TestResultPage from "./pages/TestResultPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
-// import GlobalStyled from "./shared/GlobalStyled";
+import GlobalStyled from "./shared/GlobalStyled";
 
 function App() {
   const [user, setUser] = useState(null);
 
   return (
     <Router>
+      <GlobalStyled />
       <Layout user={user} setUser={setUser}>
         <Routes>
           <Route path="/" element={<Home user={user} />} />
