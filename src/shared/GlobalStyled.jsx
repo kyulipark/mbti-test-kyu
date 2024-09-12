@@ -8,7 +8,7 @@ const GlobalStyled = createGlobalStyle`
   }
 
     body{
-      background-color: #e8e8e8;
+      // background-color: #e8e8e8;
       display: flex;
       align-items: center;
       justify-content: center;

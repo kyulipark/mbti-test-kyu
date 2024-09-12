@@ -1,6 +1,7 @@
 import AuthForm from "../components/AuthForm";
 import { login, getUserProfile } from "../api/auth";
 import { Link, useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
 const Login = ({ setUser }) => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <div>
+    <StyledBox>
       <div>
         <h1>로그인</h1>
         <AuthForm mode={"login"} onSubmit={handleLogin} />
@@ -31,8 +32,13 @@ const Login = ({ setUser }) => {
           </p>
         </div>
       </div>
-    </div>
+    </StyledBox>
   );
 };
 
 export default Login;
+
+const StyledBox = styled.div`
+  background-color: #e5e5e5;
+  height: 100vh;
+`;
